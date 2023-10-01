@@ -18,7 +18,7 @@ app.get('/', (req, res, next) => {
     } catch (error) {
         healthcheck.message = error;
         res.status(503).send();
-    }  
+    }
 })
 
 app.post('/neworder', bodyParser.json(), (req, res) => {

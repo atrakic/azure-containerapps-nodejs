@@ -12,10 +12,6 @@ on:
   pull_request:
     branches:
       - 'main'
-    # only build when important files change
-    paths:
-      - 'src/**'
-      - '.github/workflows/docker.yml'
   tags:
     - 'v*.*.*'
 

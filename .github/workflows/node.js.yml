@@ -2,15 +2,17 @@ name: Node.js CI
 
 on:
   push:
+    branches:
+      - '*'
     # only build when important files change
     paths:
       - 'src/**'
-      - '.github/workflows/node.js.yml'    
+      - '.github/workflows/node.js.yml'
   pull_request:
     # only build when important files change
     paths:
       - 'src/**'
-      - '.github/workflows/node.js.yml'    
+      - '.github/workflows/node.js.yml'
 
 jobs:
   build:

@@ -1,0 +1,6 @@
+version: 1
+apps:
+  - appDirPath: ./src/
+    appID: nodeapp
+    appPort: 3000
+    command: ["node", "app.js"]

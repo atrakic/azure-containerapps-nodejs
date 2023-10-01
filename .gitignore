@@ -1,0 +1,16 @@
+.DS_Store
+Brewfile.lock.json
+
+**/src/*/bin/*
+**/src/*/obj/*
+
+**/infra/.terraform/*
+**/infra/*.tfstate
+**/infra/*.terraform.lock.hcl
+**/infra/*.tfstate.*
+**/crash.log
+
+.direnv/*
+.azure
+.venv
+.env

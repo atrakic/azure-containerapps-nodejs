@@ -1,0 +1,24 @@
+services:
+  nodeapp:
+    build: ./src
+    container_name: nodeapp
+    ports:
+      - "3000:3000"
+    #  - "50001:50001" # Dapr instances communicate over gRPC so we need to expose the gRPC port
+    networks:
+      - hello-dapr
+  nodeapp-dapr:
+    image: "daprio/daprd:edge"
+    container_name: dapr
+    command: ["./daprd",
+     "-app-id", "nodeapp",
+     "-app-port", "3000",
+     "-dapr-grpc-port", "50001",
+     "-components-path", "/components"]
+    volumes:
+        - "./components/:/components"
+    depends_on:
+      - nodeapp
+    network_mode: "service:nodeapp"
+networks:
+    hello-dapr:

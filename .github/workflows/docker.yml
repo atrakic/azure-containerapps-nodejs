@@ -1,6 +1,7 @@
 name: Docker Build
 
 on:
+  workflow_dispatch:
   # we want pull requests so we can build(test) but not push to image registry
   push:
     branches:
@@ -9,11 +10,11 @@ on:
     paths:
       - 'src/**'
       - '.github/workflows/docker.yml'
+    tags:
+      - 'v*.*.*'
   pull_request:
     branches:
       - 'main'
-  tags:
-    - 'v*.*.*'
 
 env:
   REGISTRY: ghcr.io

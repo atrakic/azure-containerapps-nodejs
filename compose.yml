@@ -7,6 +7,7 @@ services:
     #  - "50001:50001" # Dapr instances communicate over gRPC so we need to expose the gRPC port
     networks:
       - hello-dapr
+  # https://docs.dapr.io/reference/components-reference/supported-state-stores/
   nodeapp-dapr:
     image: "daprio/daprd:edge"
     container_name: dapr

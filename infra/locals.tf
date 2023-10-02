@@ -3,7 +3,8 @@ locals {
     object_id = data.azurerm_client_config.current.object_id
   })
 
-  container_apps = {
+  container_apps = try(coalesce(var.container_apps, local.default_container_apps))
+  default_container_apps = {
     podinfo = {
       name          = "podinfo"
       revision_mode = "Single"
@@ -18,6 +19,12 @@ locals {
         }
       }
 
+      dapr = {
+        app_id       = "podinfo"
+        app_port     = 9898
+        app_protocol = "http"
+      }
+
       template = {
         containers = [{
           name   = "podinfo"
@@ -25,8 +32,8 @@ locals {
           cpu    = 0.25
           memory = "0.5Gi"
           env = [{
-            name  = "FOO"
-            value = "BAR"
+            name  = "DAPR"
+            value = "TRUE"
           }]
         }]
         min_replicas = 1

@@ -17,3 +17,7 @@ output "container_app_fqdn" {
 output "container_app_ips" {
   value = module.container_apps.container_app_ips
 }
+
+output "container_app_environment_name" {
+  value = module.container_apps.container_app_environment_name
+}

@@ -12,6 +12,10 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
+    "http": "^0.0.1-security",
     "isomorphic-fetch": "^3.0.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   }
 }

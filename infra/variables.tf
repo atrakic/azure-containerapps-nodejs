@@ -167,12 +167,6 @@ variable "dapr_scopes" {
   default     = ["nodeapp"]
 }
 
-variable "container_name" {
-  description = "Specifies the name of the container in the storage account."
-  type        = string
-  default     = "state"
-}
-
 variable "container_access_type" {
   description = "Specifies the access type of the container in the storage account."
   type        = string

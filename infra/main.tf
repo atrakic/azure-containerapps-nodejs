@@ -85,7 +85,7 @@ module "blob_private_endpoint" {
 
 module "storage_account" {
   source              = "./modules/storage_account"
-  name                = lower("${var.resource_prefix != "" ? var.resource_prefix : join("", random_string.resource_prefix.*.result)}${var.storage_account_name}")
+  name                = lower(var.storage_account_name)
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   tags                = local.tags
@@ -103,8 +103,10 @@ module "container_apps" {
   infrastructure_subnet_id = module.virtual_network.subnet_ids[var.aca_subnet_name]
   instrumentation_key      = module.application_insights.instrumentation_key
   workspace_id             = module.log_analytics_workspace.id
-  container_apps           = try(coalesce(local.container_apps, var.container_apps))
 
+  container_apps = local.container_apps
+
+  # https://docs.dapr.io/concepts/components-concept/
   dapr_components = [{
     name           = var.dapr_name
     component_type = var.dapr_component_type
@@ -117,6 +119,7 @@ module "container_apps" {
         value = module.storage_account.primary_access_key
       }
     ]
+    # https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-azure-blobstorage/
     metadata : [
       {
         name  = "accountName"
@@ -124,7 +127,7 @@ module "container_apps" {
       },
       {
         name  = "containerName"
-        value = var.container_name
+        value = local.container_apps["name"]
       },
       {
         name        = "accountKey"

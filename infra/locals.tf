@@ -6,13 +6,13 @@ locals {
   container_apps = try(coalesce(var.container_apps, local.default_container_apps))
   default_container_apps = {
     podinfo = {
-      name          = "podinfo"
+      name          = "nodeapp"
       revision_mode = "Single"
 
       ingress = {
         allow_insecure_connections = true
         external_enabled           = true
-        target_port                = 9898
+        target_port                = 3000
         traffic_weight = {
           latest_revision = true
           percentage      = 100
@@ -20,15 +20,15 @@ locals {
       }
 
       dapr = {
-        app_id       = "podinfo"
-        app_port     = 9898
+        app_id       = "nodeapp"
+        app_port     = 3000
         app_protocol = "http"
       }
 
       template = {
         containers = [{
-          name   = "podinfo"
-          image  = "stefanprodan/podinfo:latest"
+          name   = "nodeapp"
+          image  = "ghcr.io/atrakic/nodeapp:latest
           cpu    = 0.25
           memory = "0.5Gi"
           env = [{
